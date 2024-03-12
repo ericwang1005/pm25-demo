@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books</title>
+  </head>
+  <style>
+    body {
+      text-align: center;
+    }
+  </style>
+  <body>
+    <h1>Book List</h1>
+    {%for id in books%}
+    <h2>{{books[id].name}}</h2>
+    <h3>Price:{{books[id].price}}</h3>
+    <img src="{{books[id].image_url}}" alt="{{books[id].name}}" />
+    {% endfor %}
+  </body>
+</html>
