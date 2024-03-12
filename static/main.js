@@ -3,9 +3,32 @@ const chart1 = echarts.init(document.getElementById("main"));
 
 const chart2 = echarts.init(document.getElementById("six"));
 
+const chart3 = echarts.init(document.getElementById("county"));
+let county;
+//監聽select選擇的value
+$("#select_county").change(() => {
+  county = $("#select_county").val();
+  console.log(county);
+});
 drawPM25();
-
+function drawCountyPm25(county) {
+  chart3.showLoading();
+  $.ajax({
+    url: `/county-pm25-data/${county}`,
+    type: "GET",
+    dataType: "JSON",
+    success: (result) => {
+      console.log(result);
+      drawChart(chart3, county, "PM2.5", result["site"], result["pm25"]);
+    },
+    error: () => {
+      alert("System Updating, Please Try Again Later");
+      chart1.hideLoading();
+    },
+  });
+}
 function drawSixPm25() {
+  chart2.showLoading();
   $.ajax({
     url: "/six-pm25-data",
     type: "GET",
@@ -19,6 +42,10 @@ function drawSixPm25() {
         result["site"],
         result["pm25"]
       );
+    },
+    error: () => {
+      alert("System Updating, Please Try Again Later");
+      chart1.hideLoading();
     },
   });
 }
@@ -40,6 +67,7 @@ function drawPM25() {
       );
       chart1.hideLoading();
       drawSixPm25();
+      drawCountyPm25("彰化縣");
     },
     error: () => {
       alert("System Updating, Please Try Again Later");

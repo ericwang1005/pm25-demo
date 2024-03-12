@@ -15,6 +15,14 @@
     <div id="main" style="width: 1080px; height: 960px"></div>
 
     <div id="six" style="width: 1080px; height: 720px"></div>
+
+    <h2>各縣PM是2.5值</h2>
+    <select name="select_county" id="select_county">
+      {% for county in countys %}
+      <option value="{{county}}">{{county}}</option>
+      {% endfor %}
+    </select>
+    <div id="county" style="width: 1080px; height: 720px"></div>
     <script src="../static/main.js"></script>
   </body>
 </html>
