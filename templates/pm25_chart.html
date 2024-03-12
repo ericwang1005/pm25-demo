@@ -9,57 +9,12 @@
   </head>
   <body>
     <h1>PM2.5全省數據圖表</h1>
+    <div>
+      <button id="updateData" onclick="drawPM25()">更新資料</button>
+    </div>
     <div id="main" style="width: 1080px; height: 960px"></div>
-    <script>
-      // Initialize the echarts instance based on the prepared dom
-      const myChart = echarts.init(document.getElementById("main"));
 
-      drawPM25();
-
-      function drawPM25() {
-        $.ajax({
-          url: "/pm25-data",
-          type: "GET",
-          dataType: "JSON",
-          success: (result) => {
-            console.log(result);
-            drawChart(
-              myChart,
-              result["datetime"],
-              "PM2.5",
-              result["site"],
-              result["pm25"]
-            );
-          },
-        });
-      }
-
-      function drawChart(chart, title, legend, xData, yData) {
-        // Specify the configuration items and data for the chart
-        let option = {
-          title: {
-            text: title,
-          },
-          tooltip: {},
-          legend: {
-            data: legend,
-          },
-          xAxis: {
-            data: xData,
-          },
-          yAxis: {},
-          series: [
-            {
-              name: legend,
-              type: "bar",
-              data: yData,
-            },
-          ],
-        };
-
-        // Display the chart using the configuration items and data just specified.
-        chart.setOption(option);
-      }
-    </script>
+    <div id="six" style="width: 1080px; height: 720px"></div>
+    <script src="../static/main.js"></script>
   </body>
 </html>
